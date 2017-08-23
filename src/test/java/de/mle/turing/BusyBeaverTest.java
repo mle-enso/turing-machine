@@ -8,7 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class BusyBeaverTest {
-    private Rule[] transition = new Rule[] {
+    private Rule[] rules = new Rule[] {
             new Rule("q0", E, "1", Direction.RIGHT, "q1"),
             new Rule("q0", "1", "1", Direction.LEFT, "q1"),
             new Rule("q1", E, "1", Direction.LEFT, "q0"),
@@ -26,7 +26,7 @@ public class BusyBeaverTest {
     @Test(dataProvider = "provideTape")
     public void runBusyBeaverAccepting(Tape initialTape, Result expectedResult, String finalTape) {
         // given
-        TuringMachine tm = new TuringMachine(initialTape, transition, "q0");
+        TuringMachine tm = new TuringMachine(initialTape, rules, "q0");
 
         // when
         Result result = tm.run();

@@ -2,6 +2,8 @@ package de.mle.turing;
 
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -45,6 +47,8 @@ public class Tape {
     }
 
     String read() {
+        if (StringUtils.isBlank(symbols))
+            return "";
         return symbols.substring(pos, pos + 1);
     }
 
@@ -54,7 +58,7 @@ public class Tape {
 
     @Override
     public String toString() {
-        String withSpaces = " " + symbols.chars().mapToObj(i -> String.valueOf((char) i)).collect(Collectors.joining(" ")) + " ";
+        String withSpaces = E + symbols.chars().mapToObj(i -> String.valueOf((char) i)).collect(Collectors.joining(" ")) + E;
         int newPos = pos * 2 + 1;
         return String.format("%s[%s]%s",
                 withSpaces.subSequence(0, newPos - 1),
