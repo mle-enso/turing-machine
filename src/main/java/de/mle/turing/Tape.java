@@ -2,17 +2,21 @@ package de.mle.turing;
 
 import java.util.stream.Collectors;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor(staticName = "with")
 @EqualsAndHashCode(of = "symbols")
 public class Tape {
-    String symbols;
-    String empty;
-    int pos;
+    /** The empty symbol */
+    public static final String E = "_";
+
+    @NonNull
+    private String symbols;
+    private int pos = 0;
 
     void move(Direction direction) {
         switch (direction) {
@@ -33,11 +37,11 @@ public class Tape {
     }
 
     private void appendEmpty() {
-        symbols = symbols + empty;
+        symbols = symbols + E;
     }
 
     private void prependEmpty() {
-        symbols = empty + symbols;
+        symbols = E + symbols;
     }
 
     String read() {
