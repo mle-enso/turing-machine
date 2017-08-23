@@ -3,6 +3,7 @@ Simple infrastructure to execute programs within a Turing Machine.
 
 [![Build Status](https://travis-ci.org/mle-enso/turing-machine.svg?branch=master)](https://travis-ci.org/mle-enso/turing-machine)
 [![GPLv3](https://img.shields.io/badge/licence-GPLv3-brightgreen.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
+[![codecov.io](https://codecov.io/github/mle-enso/turing-machine/coverage.svg?branch=master)](https://codecov.io/github/mle-enso/turing-machine?branch=master)
 
 ## Starting
 
