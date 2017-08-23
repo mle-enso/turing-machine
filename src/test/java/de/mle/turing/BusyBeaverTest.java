@@ -3,6 +3,7 @@ package de.mle.turing;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class BusyBeaverTest {
@@ -13,29 +14,24 @@ public class BusyBeaverTest {
             new Rule("q1", "1", "1", Direction.NONE, TERMINATION_STATE)
     };
 
-    @Test
-    public void runBusyBeaverAccepting() {
-        // given
-        TuringMachine tm = new TuringMachine(new Tape("_", "_", 0), transition, "q0");
-
-        // when
-        Result result = tm.run();
-
-        // then
-        assertThat(result).isEqualTo(Result.ACCEPT);
-        assertThat(tm.getCurrentTape()).isEqualTo(("1111"));
+    @DataProvider
+    public Object[][] provideTape() {
+        return new Object[][] {
+                { new Tape("_", "_", 0), Result.ACCEPT, "1111" },
+                { new Tape("x", "_", 0), Result.REJECT, "x" }
+        };
     }
 
-    @Test
-    public void runBusyBeaverRejecting() {
+    @Test(dataProvider = "provideTape")
+    public void runBusyBeaverAccepting(Tape initialTape, Result expectedResult, String finalTape) {
         // given
-        TuringMachine tm = new TuringMachine(new Tape("2222", "_", 0), transition, "q0");
+        TuringMachine tm = new TuringMachine(initialTape, transition, "q0");
 
         // when
         Result result = tm.run();
 
         // then
-        assertThat(result).isEqualTo(Result.REJECT);
-        assertThat(tm.getCurrentTape()).isEqualTo(("2222"));
+        assertThat(result).isEqualTo(expectedResult);
+        assertThat(tm.getCurrentTape()).isEqualTo((finalTape));
     }
 }
