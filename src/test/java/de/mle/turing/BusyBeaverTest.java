@@ -7,16 +7,16 @@ import org.testng.annotations.Test;
 
 public class BusyBeaverTest {
     private Rule[] transition = new Rule[] {
-            new Rule("q0", '_', '1', Direction.RIGHT, "q1"),
-            new Rule("q0", '1', '1', Direction.LEFT, "q1"),
-            new Rule("q1", '_', '1', Direction.LEFT, "q0"),
-            new Rule("q1", '1', '1', Direction.NONE, TERMINATION_STATE)
+            new Rule("q0", "_", "1", Direction.RIGHT, "q1"),
+            new Rule("q0", "1", "1", Direction.LEFT, "q1"),
+            new Rule("q1", "_", "1", Direction.LEFT, "q0"),
+            new Rule("q1", "1", "1", Direction.NONE, TERMINATION_STATE)
     };
 
     @Test
     public void runBusyBeaverAccepting() {
         // given
-        TuringMachine tm = new TuringMachine(new Tape("_", '_', 0), transition, "q0");
+        TuringMachine tm = new TuringMachine(new Tape("_", "_", 0), transition, "q0");
 
         // when
         Result result = tm.run();
@@ -29,7 +29,7 @@ public class BusyBeaverTest {
     @Test
     public void runBusyBeaverRejecting() {
         // given
-        TuringMachine tm = new TuringMachine(new Tape("2222", '_', 0), transition, "q0");
+        TuringMachine tm = new TuringMachine(new Tape("2222", "_", 0), transition, "q0");
 
         // when
         Result result = tm.run();

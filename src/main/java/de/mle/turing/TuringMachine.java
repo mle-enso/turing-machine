@@ -17,7 +17,7 @@ public class TuringMachine {
 
     private void step() throws NoFurtherTransitionException {
         Rule currentRule = Arrays.stream(rules)
-                .filter(rule -> rule.getFromState().equals(state) && rule.getRead() == tape.read())
+                .filter(rule -> rule.getFromState().equals(state) && rule.getRead().equals(tape.read()))
                 .findFirst()
                 .orElseThrow(() -> new NoFurtherTransitionException("no transition from current state"));
 

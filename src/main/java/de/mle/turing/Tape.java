@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(of = "symbols")
 public class Tape {
     String symbols;
-    char empty;
+    String empty;
     int pos;
 
     void move(Direction direction) {
@@ -40,18 +40,18 @@ public class Tape {
         symbols = empty + symbols;
     }
 
-    char read() {
-        return symbols.charAt(pos);
+    String read() {
+        return symbols.substring(pos, pos + 1);
     }
 
-    void write(char symbol) {
+    void write(String symbol) {
         symbols = String.format("%s%s%s", symbols.subSequence(0, pos), symbol, symbols.subSequence(pos + 1, symbols.length()));
     }
 
     @Override
     public String toString() {
         String withSpaces = " " + symbols.chars().mapToObj(i -> String.valueOf((char) i)).collect(Collectors.joining(" ")) + " ";
-        int newPos = pos * 2 + 1; // 0,1,2,3,4 ... -> 1,3,5,7,9 ...
+        int newPos = pos * 2 + 1;
         return String.format("%s[%s]%s",
                 withSpaces.subSequence(0, newPos - 1),
                 withSpaces.subSequence(newPos, newPos + 1),
