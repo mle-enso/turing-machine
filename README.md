@@ -1,5 +1,13 @@
 # Turing Machine
-Programming exercise and simple tool to execute programs within a Turing Machine.
+Simple infrastructure to execute programs within a Turing Machine.
 
-Travis just reported the latest status of our project is 
+Current build status reported by Travis CI:
 [![Build Status](https://travis-ci.org/mle-enso/turing-machine.svg?branch=master)](https://travis-ci.org/mle-enso/turing-machine)
+
+## Starting
+
+Clone this project and simply execute all included tests such as a palindrome tester and the 2-state Busy beaver by running Maven via ```mvn clean test```.
+
+## Contributing
+
+Feel free to add further programs of Turing Machines by adding test classes and creating pull requests.
