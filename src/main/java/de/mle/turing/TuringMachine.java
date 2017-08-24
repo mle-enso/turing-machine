@@ -2,9 +2,9 @@ package de.mle.turing;
 
 import java.util.Arrays;
 
-import groovy.transform.ToString;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
