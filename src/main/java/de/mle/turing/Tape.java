@@ -4,18 +4,18 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-@Data
-@RequiredArgsConstructor(staticName = "with")
 @EqualsAndHashCode(of = "symbols")
+@RequiredArgsConstructor(staticName = "with")
 public class Tape {
     /** The empty symbol */
     public static final String E = "_";
 
+    @Getter
     @NonNull
     private String symbols;
     private int pos = 0;

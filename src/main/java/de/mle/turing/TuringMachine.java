@@ -2,12 +2,17 @@ package de.mle.turing;
 
 import java.util.Arrays;
 
-import lombok.Value;
+import groovy.transform.ToString;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Value
+@ToString
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TuringMachine {
     public static final String TERMINATION_STATE = "qf";
     Tape tape;
