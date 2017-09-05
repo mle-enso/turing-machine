@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class EvenNumbersTest {
+public class EvenNumberOfOnesTest {
     private Rule[] rules = new Rule[] {
             new Rule("q0", "1", "1", Direction.RIGHT, "q1"),
             new Rule("q0", "0", "0", Direction.RIGHT, "q0"),
