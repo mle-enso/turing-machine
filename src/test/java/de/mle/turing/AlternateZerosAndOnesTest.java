@@ -15,7 +15,6 @@ public class AlternateZerosAndOnesTest {
 
             new Rule("q1", "1", "1", Direction.RIGHT, "q0"),
             new Rule("q1", "E", "E", Direction.RIGHT, "q1"),
-            new Rule("q1", "0", "0", Direction.RIGHT, "q3"),
 
     };
 
@@ -24,7 +23,8 @@ public class AlternateZerosAndOnesTest {
         return new Object[][] {
                 { Tape.with(E), Result.ACCEPT },
                 { Tape.with("01E"), Result.ACCEPT },
-                { Tape.with("01"), Result.ACCEPT },
+                { Tape.with("001"), Result.REJECT },
+                { Tape.with("011"), Result.REJECT },
                 { Tape.with("01EEE"), Result.ACCEPT },
                 { Tape.with("0"), Result.REJECT },
                 { Tape.with("01"), Result.ACCEPT },
