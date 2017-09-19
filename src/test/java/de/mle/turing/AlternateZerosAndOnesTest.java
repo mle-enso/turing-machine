@@ -3,8 +3,6 @@ package de.mle.turing;
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
-import org.testng.annotations.DataProvider;
-
 public class AlternateZerosAndOnesTest extends CommonTestConfig {
     {
         rules = new Rule[] {
@@ -16,11 +14,8 @@ public class AlternateZerosAndOnesTest extends CommonTestConfig {
                 new Rule("q1", "E", "E", Direction.RIGHT, "q1"),
 
         };
-    }
 
-    @DataProvider
-    public Object[][] provideTape() {
-        return new Object[][] {
+        initialTapeAndExpectedResultAndExpectedTape = new Object[][] {
                 { Tape.with(E), Result.ACCEPT, "" },
                 { Tape.with("01E"), Result.ACCEPT, "01E" },
                 { Tape.with("001"), Result.REJECT, "001" },

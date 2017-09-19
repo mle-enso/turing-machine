@@ -3,9 +3,7 @@ package de.mle.turing;
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
-import org.testng.annotations.DataProvider;
-
-public class AddOneToBinaryNumbers extends CommonTestConfig {
+public class AddOneToBinaryNumbersTest extends CommonTestConfig {
     {
         rules = new Rule[] {
                 new Rule("q0", "1", "1", Direction.RIGHT, "q0"),
@@ -16,11 +14,8 @@ public class AddOneToBinaryNumbers extends CommonTestConfig {
                 new Rule("q1", "0", "1", Direction.NONE, TERMINATION_STATE),
                 new Rule("q1", E, "1", Direction.NONE, TERMINATION_STATE)
         };
-    }
 
-    @DataProvider
-    public Object[][] provideTape() {
-        return new Object[][] {
+        initialTapeAndExpectedResultAndExpectedTape = new Object[][] {
                 { Tape.with("1"), Result.ACCEPT, "10" },
                 { Tape.with("10"), Result.ACCEPT, "11" },
                 { Tape.with("11"), Result.ACCEPT, "100" },

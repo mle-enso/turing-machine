@@ -3,9 +3,7 @@ package de.mle.turing;
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
-import org.testng.annotations.DataProvider;
-
-public class TransformOnesToBinaryNumbersWithDivision extends CommonTestConfig {
+public class TransformOnesToBinaryNumbersWithDivisionTest extends CommonTestConfig {
     {
         rules = new Rule[] {
                 // Go right
@@ -59,11 +57,8 @@ public class TransformOnesToBinaryNumbersWithDivision extends CommonTestConfig {
                 new Rule("q10", "0", "1", Direction.LEFT, "q10"),
                 new Rule("q10", E, E, Direction.RIGHT, TERMINATION_STATE)
         };
-    }
 
-    @DataProvider
-    public Object[][] provideTape() {
-        return new Object[][] {
+        initialTapeAndExpectedResultAndExpectedTape = new Object[][] {
                 { Tape.with("1"), Result.ACCEPT, "1_1" },
                 { Tape.with("11"), Result.ACCEPT, "10_11" },
                 { Tape.with("111"), Result.ACCEPT, "11_111" },

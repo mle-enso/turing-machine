@@ -3,8 +3,6 @@ package de.mle.turing;
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
-import org.testng.annotations.DataProvider;
-
 public class PalindromeTest extends CommonTestConfig {
     {
         rules = new Rule[] {
@@ -36,11 +34,8 @@ public class PalindromeTest extends CommonTestConfig {
                 new Rule("q6", "0", E, Direction.RIGHT, "q6"),
                 new Rule("q6", "1", E, Direction.RIGHT, "q6")
         };
-    }
 
-    @DataProvider
-    public Object[][] provideTape() {
-        return new Object[][] {
+        initialTapeAndExpectedResultAndExpectedTape = new Object[][] {
                 { Tape.with(E), Result.ACCEPT, "" },
                 { Tape.with("0"), Result.ACCEPT, "" },
                 { Tape.with("11"), Result.ACCEPT, "" },

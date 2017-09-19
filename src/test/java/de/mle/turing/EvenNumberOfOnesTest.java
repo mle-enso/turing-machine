@@ -3,8 +3,6 @@ package de.mle.turing;
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
-import org.testng.annotations.DataProvider;
-
 public class EvenNumberOfOnesTest extends CommonTestConfig {
     {
         rules = new Rule[] {
@@ -15,11 +13,8 @@ public class EvenNumberOfOnesTest extends CommonTestConfig {
                 new Rule("q1", "1", "1", Direction.RIGHT, "q0"),
                 new Rule("q1", "0", "0", Direction.RIGHT, "q1")
         };
-    }
 
-    @DataProvider
-    public Object[][] provideTape() {
-        return new Object[][] {
+        initialTapeAndExpectedResultAndExpectedTape = new Object[][] {
                 { Tape.with(E), Result.ACCEPT, "" },
                 { Tape.with("1"), Result.REJECT, "1" },
                 { Tape.with("11"), Result.ACCEPT, "11" },
