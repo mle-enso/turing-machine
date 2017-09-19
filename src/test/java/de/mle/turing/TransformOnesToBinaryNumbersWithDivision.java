@@ -2,70 +2,68 @@ package de.mle.turing;
 
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-public class TransformOnesToBinaryNumbersWithDivision {
-    private Rule[] rules = new Rule[] {
+public class TransformOnesToBinaryNumbersWithDivision extends CommonTestConfig {
+    {
+        rules = new Rule[] {
+                // Go right
+                new Rule("q0", "1", "1", Direction.RIGHT, "q0"),
+                new Rule("q0", "0", "0", Direction.RIGHT, "q0"),
+                new Rule("q0", E, E, Direction.LEFT, "q1"),
 
-            // Go right
-            new Rule("q0", "1", "1", Direction.RIGHT, "q0"),
-            new Rule("q0", "0", "0", Direction.RIGHT, "q0"),
-            new Rule("q0", E, E, Direction.LEFT, "q1"),
+                // Check if even or uneven
+                new Rule("q1", "1", "1", Direction.LEFT, "q2"),
+                new Rule("q1", "0", "0", Direction.LEFT, "q1"),
+                new Rule("q1", E, E, Direction.LEFT, "q3"), // > is even number
 
-            // Check if even or uneven
-            new Rule("q1", "1", "1", Direction.LEFT, "q2"),
-            new Rule("q1", "0", "0", Direction.LEFT, "q1"),
-            new Rule("q1", E, E, Direction.LEFT, "q3"), // > is even number
+                new Rule("q2", "1", "1", Direction.LEFT, "q1"),
+                new Rule("q2", "0", "0", Direction.LEFT, "q2"),
+                new Rule("q2", E, E, Direction.LEFT, "q4"), // > is uneven number
 
-            new Rule("q2", "1", "1", Direction.LEFT, "q1"),
-            new Rule("q2", "0", "0", Direction.LEFT, "q2"),
-            new Rule("q2", E, E, Direction.LEFT, "q4"), // > is uneven number
+                // Even number: Go left and write 0
+                new Rule("q3", "1", "1", Direction.LEFT, "q3"),
+                new Rule("q3", "0", "0", Direction.LEFT, "q3"),
+                new Rule("q3", E, "0", Direction.RIGHT, "q5"),
 
-            // Even number: Go left and write 0
-            new Rule("q3", "1", "1", Direction.LEFT, "q3"),
-            new Rule("q3", "0", "0", Direction.LEFT, "q3"),
-            new Rule("q3", E, "0", Direction.RIGHT, "q5"),
+                // Uneven number: Go left and write 1
+                new Rule("q4", "1", "1", Direction.LEFT, "q4"),
+                new Rule("q4", "0", "0", Direction.LEFT, "q4"),
+                new Rule("q4", E, "1", Direction.RIGHT, "q5"),
 
-            // Uneven number: Go left and write 1
-            new Rule("q4", "1", "1", Direction.LEFT, "q4"),
-            new Rule("q4", "0", "0", Direction.LEFT, "q4"),
-            new Rule("q4", E, "1", Direction.RIGHT, "q5"),
+                // Go back right to middle E
+                new Rule("q5", "1", "1", Direction.RIGHT, "q5"),
+                new Rule("q5", "0", "0", Direction.RIGHT, "q5"),
+                new Rule("q5", E, E, Direction.RIGHT, "q6"),
 
-            // Go back right to middle E
-            new Rule("q5", "1", "1", Direction.RIGHT, "q5"),
-            new Rule("q5", "0", "0", Direction.RIGHT, "q5"),
-            new Rule("q5", E, E, Direction.RIGHT, "q6"),
+                // Divide by two
+                new Rule("q6", "1", "0", Direction.RIGHT, "q7"),
+                new Rule("q6", "0", "0", Direction.RIGHT, "q6"),
+                new Rule("q6", E, E, Direction.LEFT, "q8"),
 
-            // Divide by two
-            new Rule("q6", "1", "0", Direction.RIGHT, "q7"),
-            new Rule("q6", "0", "0", Direction.RIGHT, "q6"),
-            new Rule("q6", E, E, Direction.LEFT, "q8"),
+                new Rule("q7", "1", "1", Direction.RIGHT, "q6"),
+                new Rule("q7", "0", "0", Direction.RIGHT, "q7"),
+                new Rule("q7", E, E, Direction.LEFT, "q8"),
 
-            new Rule("q7", "1", "1", Direction.RIGHT, "q6"),
-            new Rule("q7", "0", "0", Direction.RIGHT, "q7"),
-            new Rule("q7", E, E, Direction.LEFT, "q8"),
+                // Go back left to middle E
+                new Rule("q8", "1", "1", Direction.LEFT, "q8"),
+                new Rule("q8", "0", "0", Direction.LEFT, "q8"),
+                new Rule("q8", E, E, Direction.RIGHT, "q9"),
 
-            // Go back left to middle E
-            new Rule("q8", "1", "1", Direction.LEFT, "q8"),
-            new Rule("q8", "0", "0", Direction.LEFT, "q8"),
-            new Rule("q8", E, E, Direction.RIGHT, "q9"),
+                // Check if there are still ones otherwise terminate
+                new Rule("q9", "1", "1", Direction.RIGHT, "q0"),
+                new Rule("q9", "0", "0", Direction.RIGHT, "q9"),
+                new Rule("q9", E, E, Direction.LEFT, "q10"),
 
-            // Check if there are still ones otherwise terminate
-            new Rule("q9", "1", "1", Direction.RIGHT, "q0"),
-            new Rule("q9", "0", "0", Direction.RIGHT, "q9"),
-            new Rule("q9", E, E, Direction.LEFT, "q10"),
-
-            new Rule("q10", "0", "1", Direction.LEFT, "q10"),
-            new Rule("q10", E, E, Direction.RIGHT, TERMINATION_STATE)
-    };
+                new Rule("q10", "0", "1", Direction.LEFT, "q10"),
+                new Rule("q10", E, E, Direction.RIGHT, TERMINATION_STATE)
+        };
+    }
 
     @DataProvider
     public Object[][] provideTape() {
         return new Object[][] {
-
                 { Tape.with("1"), Result.ACCEPT, "1_1" },
                 { Tape.with("11"), Result.ACCEPT, "10_11" },
                 { Tape.with("111"), Result.ACCEPT, "11_111" },
@@ -79,18 +77,5 @@ public class TransformOnesToBinaryNumbersWithDivision {
                 { Tape.with("111111111111111111"), Result.ACCEPT, "10010_111111111111111111" },
                 { Tape.with("11111111111111111111"), Result.ACCEPT, "10100_11111111111111111111" }
         };
-    }
-
-    @Test(dataProvider = "provideTape")
-    public void runBusyBeaverAccepting(Tape initialTape, Result expectedResult, String finalTape) {
-        // given
-        TuringMachine tm = new TuringMachine(initialTape, rules, "q0");
-
-        // when
-        Result result = tm.run();
-
-        // then
-        assertThat(result).isEqualTo(expectedResult);
-        assertThat(tm.getCurrentTape()).isEqualTo((finalTape));
     }
 }

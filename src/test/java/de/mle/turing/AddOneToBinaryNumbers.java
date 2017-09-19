@@ -2,27 +2,25 @@ package de.mle.turing;
 
 import static de.mle.turing.Tape.E;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-public class AddOneToBinaryNumbers {
-    private Rule[] rules = new Rule[] {
+public class AddOneToBinaryNumbers extends CommonTestConfig {
+    {
+        rules = new Rule[] {
+                new Rule("q0", "1", "1", Direction.RIGHT, "q0"),
+                new Rule("q0", "0", "0", Direction.RIGHT, "q0"),
+                new Rule("q0", E, E, Direction.LEFT, "q1"),
 
-            new Rule("q0", "1", "1", Direction.RIGHT, "q0"),
-            new Rule("q0", "0", "0", Direction.RIGHT, "q0"),
-            new Rule("q0", E, E, Direction.LEFT, "q1"),
-
-            new Rule("q1", "1", "0", Direction.LEFT, "q1"),
-            new Rule("q1", "0", "1", Direction.NONE, TERMINATION_STATE),
-            new Rule("q1", E, "1", Direction.NONE, TERMINATION_STATE)
-    };
+                new Rule("q1", "1", "0", Direction.LEFT, "q1"),
+                new Rule("q1", "0", "1", Direction.NONE, TERMINATION_STATE),
+                new Rule("q1", E, "1", Direction.NONE, TERMINATION_STATE)
+        };
+    }
 
     @DataProvider
     public Object[][] provideTape() {
         return new Object[][] {
-
                 { Tape.with("1"), Result.ACCEPT, "10" },
                 { Tape.with("10"), Result.ACCEPT, "11" },
                 { Tape.with("11"), Result.ACCEPT, "100" },
@@ -50,18 +48,5 @@ public class AddOneToBinaryNumbers {
                 { Tape.with("101110100"), Result.ACCEPT, "101110101" },
                 { Tape.with("101110101"), Result.ACCEPT, "101110110" }
         };
-    }
-
-    @Test(dataProvider = "provideTape")
-    public void runBusyBeaverAccepting(Tape initialTape, Result expectedResult, String finalTape) {
-        // given
-        TuringMachine tm = new TuringMachine(initialTape, rules, "q0");
-
-        // when
-        Result result = tm.run();
-
-        // then
-        assertThat(result).isEqualTo(expectedResult);
-        assertThat(tm.getCurrentTape()).isEqualTo((finalTape));
     }
 }
