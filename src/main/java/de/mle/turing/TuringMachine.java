@@ -1,6 +1,8 @@
 package de.mle.turing;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -15,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TuringMachine {
     public static final String TERMINATION_STATE = "qf";
+    public static final String ERROR_STATE = "qe";
+
     Tape tape;
     Rule[] rules;
     @NonFinal
@@ -24,7 +28,7 @@ public class TuringMachine {
         Rule currentRule = Arrays.stream(rules)
                 .filter(rule -> rule.getFromState().equals(state) && rule.getRead().equals(tape.read()))
                 .findFirst()
-                .orElseThrow(() -> new NoFurtherTransitionException("no transition from current state"));
+                .orElseThrow(() -> new NoFurtherTransitionException("No transition from current state in rule set!"));
 
         tape.write(currentRule.getWrite());
         tape.move(currentRule.getMove());
@@ -32,8 +36,12 @@ public class TuringMachine {
     }
 
     public Result run() {
+        if (!isRuleSetValid())
+            throw new IllegalStateException("Not all toStates have corresponding fromStates!");
+
         int counter = 0;
         log.info("step {}: state: {}, tape: {}", counter, state, tape);
+
         while (!state.equals(TERMINATION_STATE)) {
             try {
                 step();
@@ -41,8 +49,20 @@ public class TuringMachine {
                 return Result.REJECT;
             }
             log.info("step {}: state: {}, tape: {}", ++counter, state, tape);
+            if (state.equals(ERROR_STATE))
+                return Result.REJECT;
         }
         return Result.ACCEPT;
+    }
+
+    private boolean isRuleSetValid() {
+        Set<String> fromStates = Arrays.stream(rules).map(Rule::getFromState).collect(Collectors.toSet());
+        Set<String> toStates = Arrays.stream(rules)
+                .map(Rule::getToState)
+                .filter(state -> !state.equals(ERROR_STATE))
+                .filter(state -> !state.equals(TERMINATION_STATE))
+                .collect(Collectors.toSet());
+        return fromStates.containsAll(toStates);
     }
 
     public String getCurrentTape() {

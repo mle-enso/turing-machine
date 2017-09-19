@@ -1,6 +1,7 @@
 package de.mle.turing;
 
 import static de.mle.turing.Tape.E;
+import static de.mle.turing.TuringMachine.ERROR_STATE;
 import static de.mle.turing.TuringMachine.TERMINATION_STATE;
 
 public class PalindromeTest extends CommonTestConfig {
@@ -30,7 +31,7 @@ public class PalindromeTest extends CommonTestConfig {
                 new Rule("q5", "0", "0", Direction.NONE, "q6"),
                 new Rule("q5", "1", E, Direction.RIGHT, "q0"),
 
-                new Rule("q6", E, E, Direction.NONE, "q7"),
+                new Rule("q6", E, E, Direction.NONE, ERROR_STATE),
                 new Rule("q6", "0", E, Direction.RIGHT, "q6"),
                 new Rule("q6", "1", E, Direction.RIGHT, "q6")
         };
