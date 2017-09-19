@@ -66,18 +66,18 @@ public class TransformOnesToBinaryNumbersWithDivision {
     public Object[][] provideTape() {
         return new Object[][] {
 
-                { Tape.with("1"), Result.ACCEPT, "1_1_" },
-                { Tape.with("11"), Result.ACCEPT, "10_11_" },
-                { Tape.with("111"), Result.ACCEPT, "11_111_" },
-                { Tape.with("1111"), Result.ACCEPT, "100_1111_" },
-                { Tape.with("11111"), Result.ACCEPT, "101_11111_" },
-                { Tape.with("111111"), Result.ACCEPT, "110_111111_" },
-                { Tape.with("1111111"), Result.ACCEPT, "111_1111111_" },
-                { Tape.with("11111111"), Result.ACCEPT, "1000_11111111_" },
-                { Tape.with("111111111"), Result.ACCEPT, "1001_111111111_" },
-                { Tape.with("1111111111"), Result.ACCEPT, "1010_1111111111_" },
-                { Tape.with("111111111111111111"), Result.ACCEPT, "10010_111111111111111111_" },
-                { Tape.with("11111111111111111111"), Result.ACCEPT, "10100_11111111111111111111_" }
+                { Tape.with("1"), Result.ACCEPT, "1_1" },
+                { Tape.with("11"), Result.ACCEPT, "10_11" },
+                { Tape.with("111"), Result.ACCEPT, "11_111" },
+                { Tape.with("1111"), Result.ACCEPT, "100_1111" },
+                { Tape.with("11111"), Result.ACCEPT, "101_11111" },
+                { Tape.with("111111"), Result.ACCEPT, "110_111111" },
+                { Tape.with("1111111"), Result.ACCEPT, "111_1111111" },
+                { Tape.with("11111111"), Result.ACCEPT, "1000_11111111" },
+                { Tape.with("111111111"), Result.ACCEPT, "1001_111111111" },
+                { Tape.with("1111111111"), Result.ACCEPT, "1010_1111111111" },
+                { Tape.with("111111111111111111"), Result.ACCEPT, "10010_111111111111111111" },
+                { Tape.with("11111111111111111111"), Result.ACCEPT, "10100_11111111111111111111" }
         };
     }
 

@@ -46,6 +46,6 @@ public class TuringMachine {
     }
 
     public String getCurrentTape() {
-        return tape.getSymbols();
+        return tape.getSymbols().replaceAll("^_+|_+$", "");
     }
 }
